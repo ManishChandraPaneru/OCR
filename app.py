@@ -14,21 +14,17 @@ if uploaded_file is not None:
         extracted_text += text + " "
     plain_txt = extracted_text
     search_keyword = st.text_input("Enter keyword to search in the extracted text")
-    if search_keyword.lower() in extracted_text.lower():
-        highlighted_text = extracted_text
-        highlighted_text = highlighted_text.replace(search_keyword, f"<mark style='background-color: yellow;'>{search_keyword}</mark>")
-        highlighted_text = highlighted_text.replace(search_keyword.capitalize(), f"<mark style='background-color: yellow;'>{search_keyword.capitalize()}</mark>")
-        highlighted_text = highlighted_text.replace(search_keyword.upper(), f"<mark style='background-color: yellow;'>{search_keyword.upper()}</mark>")
-        highlighted_text = highlighted_text.replace(search_keyword.lower(), f"<mark style='background-color: yellow;'>{search_keyword.lower()}</mark>")
-        extracted_text = highlighted_text
-        st.success(f"Keyword '{search_keyword}' found in the extracted text!")
-    else:
-        st.error(f"Keyword '{search_keyword}' not found in the extracted text.")
+    if search_keyword != "":
+        if search_keyword in extracted_text:
+            extracted_text = extracted_text.replace(search_keyword, f"<mark style='background-color: yellow;'>{search_keyword}</mark>")
+            st.success(f"Keyword '{search_keyword}' found in the extracted text!")
+        else:
+            st.error(f"Keyword '{search_keyword}' not found in the extracted text.")
     st.subheader("Extracted Text")
     st.write(extracted_text, unsafe_allow_html=True)
-    st.download_button(
-        label="Download Extracted Text",
-        data=plain_txt,
-        file_name="extracted_text.txt",
-        mime="text/plain"
-    )
+    # st.download_button(
+    #     label="Download Extracted Text",
+    #     data=plain_txt,
+    #     file_name="extracted_text.txt",
+    #     mime="text/plain"
+    # )
